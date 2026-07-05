@@ -6,6 +6,44 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is an educational repository for learning deep learning fundamentals from scratch. It belongs to a student at Zhejiang University and contains three sub-projects that build on each other progressively.
 
+## User Profile and Collaboration Preferences
+
+The user is a Computer Science and Technology student at Zhejiang University, entering sophomore year. They are early in their deep learning studies. They have solid Python fundamentals and are learning NumPy/PyTorch/deep learning frameworks through this project. They have studied enough linear algebra and calculus to read formulas; detailed derivations are useful when explicitly requested, but are not always needed.
+
+### Communication
+
+- Communicate with the user in Chinese by default. English technical terms such as `backpropagation`, `autograd`, `SGD`, `BatchNorm`, `Dropout`, `loss`, and `gradient` are fine and often preferred.
+- Keep explanations teaching-oriented. This is a learning repository, not a production system.
+- When explaining math, state the key formula and intuition. Do not expand every calculus derivation unless the user asks for it or the derivation is central to the current learning goal.
+
+### Implementation Style
+
+- The user usually expects the agent to implement code on their behalf, but only after they have clearly indicated that they understand the relevant concept and know what the agent is doing.
+- Preserve the educational nature of the code. Prefer clear, readable implementations over production abstractions or excessive optimization.
+- Avoid introducing libraries, frameworks, or file structure changes beyond the lab's intended scope unless the user explicitly asks.
+- The user should be able to explain the code afterward. Do not hide important logic behind unnecessary helper layers.
+
+### Lab and Report Style
+
+- For experiment design, follow the style of `lab1/lab_requirement.md` and `lab2/lab_requirement.md`: incremental tasks, fixed seeds, visible metrics, plots, and short analysis questions.
+- For report writing, follow the existing `.typ` files: Typst reports with academic formatting, English report titles/section framing where appropriate, and Chinese technical discussion where natural.
+- Keep the tone student-like and defensible. Avoid over-polished, generic, or obviously AI-written prose.
+- Generated plots or PDFs that are useful for reports should be saved in visible project locations near the relevant lab. Temporary inspection artifacts may go under a project-local `tmp/` directory, which should be ignored by git if created.
+
+### Execution and Dependencies
+
+- Do not install dependencies automatically. The user must manually download or install all dependencies.
+- Do not start training runs automatically unless the user explicitly asks. The user wants to start all training themselves.
+- If a proposed run may be time-consuming on CPU, especially anything plausibly approaching or exceeding one hour, warn the user first that it may take some time. The user does not have a GPU.
+- It is acceptable to inspect code, run lightweight non-training checks, and compile or inspect report files when that does not require new dependencies or long computation.
+
+### Git Workflow
+
+- Before starting a new substantive step, check the git status.
+- The user's preferred rhythm is: before doing a new step, commit the previous completed change; do not commit the current in-progress change. The current change should become the "previous change" for the next step.
+- Never automatically commit unrelated user changes. If unrelated dirty files exist, leave them alone unless the user explicitly asks.
+- Do not delete generated figures, reports, datasets, or user-visible outputs unless the user explicitly asks or they are clearly temporary artifacts created during the current task.
+
 ## Project Structure
 
 ```
