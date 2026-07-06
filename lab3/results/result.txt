@@ -1,0 +1,301 @@
+
+======================================================================
+Task 1: MLP Baseline (lab1 best: [128,128] + ReLU + Dropout 0.2)
+======================================================================
+FlexibleMLP(
+  (net): Sequential(
+    (0): Linear(in_features=784, out_features=128, bias=True)
+    (1): ReLU()
+    (2): Dropout(p=0.2, inplace=False)
+    (3): Linear(in_features=128, out_features=128, bias=True)
+    (4): ReLU()
+    (5): Dropout(p=0.2, inplace=False)
+    (6): Linear(in_features=128, out_features=10, bias=True)
+  )
+)
+MLP trainable parameters: 118282
+Epoch  1/20 | Train Loss: 0.3977 | Train Acc: 0.8825 | Val Loss: 0.1885 | Val Acc: 0.9448 | 7.2s
+Epoch  2/20 | Train Loss: 0.1715 | Train Acc: 0.9484 | Val Loss: 0.1324 | Val Acc: 0.9605 | 8.9s
+Epoch  3/20 | Train Loss: 0.1307 | Train Acc: 0.9605 | Val Loss: 0.1084 | Val Acc: 0.9672 | 8.8s
+Epoch  4/20 | Train Loss: 0.1063 | Train Acc: 0.9665 | Val Loss: 0.1023 | Val Acc: 0.9712 | 8.3s
+Epoch  5/20 | Train Loss: 0.0917 | Train Acc: 0.9709 | Val Loss: 0.0914 | Val Acc: 0.9707 | 7.4s
+Epoch  6/20 | Train Loss: 0.0800 | Train Acc: 0.9750 | Val Loss: 0.0888 | Val Acc: 0.9738 | 7.7s
+Epoch  7/20 | Train Loss: 0.0709 | Train Acc: 0.9772 | Val Loss: 0.0822 | Val Acc: 0.9765 | 7.5s
+Epoch  8/20 | Train Loss: 0.0681 | Train Acc: 0.9779 | Val Loss: 0.0851 | Val Acc: 0.9762 | 11.2s
+Epoch  9/20 | Train Loss: 0.0589 | Train Acc: 0.9808 | Val Loss: 0.0845 | Val Acc: 0.9765 | 6.6s
+Epoch 10/20 | Train Loss: 0.0571 | Train Acc: 0.9816 | Val Loss: 0.0798 | Val Acc: 0.9775 | 11.7s
+Epoch 11/20 | Train Loss: 0.0525 | Train Acc: 0.9829 | Val Loss: 0.0786 | Val Acc: 0.9787 | 5.7s
+Epoch 12/20 | Train Loss: 0.0490 | Train Acc: 0.9837 | Val Loss: 0.0823 | Val Acc: 0.9775 | 7.9s
+Epoch 13/20 | Train Loss: 0.0458 | Train Acc: 0.9846 | Val Loss: 0.0820 | Val Acc: 0.9778 | 10.5s
+Epoch 14/20 | Train Loss: 0.0446 | Train Acc: 0.9854 | Val Loss: 0.0747 | Val Acc: 0.9810 | 7.2s
+Epoch 15/20 | Train Loss: 0.0408 | Train Acc: 0.9861 | Val Loss: 0.0808 | Val Acc: 0.9783 | 6.4s
+Epoch 16/20 | Train Loss: 0.0401 | Train Acc: 0.9860 | Val Loss: 0.0812 | Val Acc: 0.9787 | 7.1s
+Epoch 17/20 | Train Loss: 0.0395 | Train Acc: 0.9868 | Val Loss: 0.0815 | Val Acc: 0.9798 | 8.3s
+Epoch 18/20 | Train Loss: 0.0390 | Train Acc: 0.9872 | Val Loss: 0.0832 | Val Acc: 0.9797 | 7.3s
+Epoch 19/20 | Train Loss: 0.0352 | Train Acc: 0.9883 | Val Loss: 0.0918 | Val Acc: 0.9770 | 5.7s
+Epoch 20/20 | Train Loss: 0.0350 | Train Acc: 0.9885 | Val Loss: 0.0820 | Val Acc: 0.9783 | 7.7s
+MLP test accuracy: 0.9806
+
+======================================================================
+Task 2: Minimal CNN (single conv block)
+======================================================================
+MinimalCNN tensor shape flow:
+  Input:          (4, 1, 28, 28)
+  After Conv2d:   (4, 16, 28, 28)
+  After ReLU:     (4, 16, 28, 28)
+  After MaxPool:  (4, 16, 14, 14)
+  After Flatten: (4, 3136)
+  Output logits: (4, 10)
+MinimalCNN(
+  (conv_block): Sequential(
+    (0): Conv2d(1, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classifier): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): Linear(in_features=3136, out_features=128, bias=True)
+    (2): ReLU()
+    (3): Linear(in_features=128, out_features=10, bias=True)
+  )
+)
+MinimalCNN trainable parameters: 402986
+Epoch  1/15 | Train Loss: 0.3295 | Train Acc: 0.9055 | Val Loss: 0.1515 | Val Acc: 0.9528 | 11.3s
+Epoch  2/15 | Train Loss: 0.1095 | Train Acc: 0.9676 | Val Loss: 0.0981 | Val Acc: 0.9708 | 11.8s
+Epoch  3/15 | Train Loss: 0.0706 | Train Acc: 0.9784 | Val Loss: 0.0768 | Val Acc: 0.9768 | 13.8s
+Epoch  4/15 | Train Loss: 0.0532 | Train Acc: 0.9841 | Val Loss: 0.0742 | Val Acc: 0.9790 | 12.7s
+Epoch  5/15 | Train Loss: 0.0406 | Train Acc: 0.9872 | Val Loss: 0.0588 | Val Acc: 0.9840 | 10.7s
+Epoch  6/15 | Train Loss: 0.0330 | Train Acc: 0.9897 | Val Loss: 0.0619 | Val Acc: 0.9815 | 13.4s
+Epoch  7/15 | Train Loss: 0.0259 | Train Acc: 0.9922 | Val Loss: 0.0597 | Val Acc: 0.9827 | 12.3s
+Epoch  8/15 | Train Loss: 0.0224 | Train Acc: 0.9932 | Val Loss: 0.0552 | Val Acc: 0.9845 | 13.9s
+Epoch  9/15 | Train Loss: 0.0178 | Train Acc: 0.9945 | Val Loss: 0.0550 | Val Acc: 0.9833 | 13.4s
+Epoch 10/15 | Train Loss: 0.0149 | Train Acc: 0.9954 | Val Loss: 0.0585 | Val Acc: 0.9818 | 14.7s
+Epoch 11/15 | Train Loss: 0.0117 | Train Acc: 0.9964 | Val Loss: 0.0768 | Val Acc: 0.9798 | 13.3s
+Epoch 12/15 | Train Loss: 0.0107 | Train Acc: 0.9967 | Val Loss: 0.0679 | Val Acc: 0.9810 | 14.4s
+Epoch 13/15 | Train Loss: 0.0095 | Train Acc: 0.9970 | Val Loss: 0.0566 | Val Acc: 0.9847 | 14.7s
+Epoch 14/15 | Train Loss: 0.0073 | Train Acc: 0.9978 | Val Loss: 0.0626 | Val Acc: 0.9832 | 12.4s
+Epoch 15/15 | Train Loss: 0.0065 | Train Acc: 0.9980 | Val Loss: 0.0625 | Val Acc: 0.9848 | 12.1s
+MinimalCNN test accuracy: 0.9858
+
+======================================================================
+Task 3: LeNet-style CNN (Tanh + MaxPool, channels (6,16))
+======================================================================
+LeNetStyleCNN tensor shape flow:
+  Input:          (4, 1, 28, 28)
+  After Conv1:    (4, 6, 24, 24)
+  After Pool1:    (4, 6, 12, 12)
+  After Conv2:    (4, 16, 8, 8)
+  After Pool2:    (4, 16, 4, 4)
+  After Flatten: (4, 256)
+  After FC1:     (4, 120)
+  After FC2:     (4, 84)
+  Output logits: (4, 10)
+LeNetStyleCNN(
+  (features): Sequential(
+    (0): Conv2d(1, 6, kernel_size=(5, 5), stride=(1, 1))
+    (1): Tanh()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1))
+    (4): Tanh()
+    (5): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classifier): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): Linear(in_features=256, out_features=120, bias=True)
+    (2): Tanh()
+    (3): Linear(in_features=120, out_features=84, bias=True)
+    (4): Tanh()
+    (5): Identity()
+    (6): Linear(in_features=84, out_features=10, bias=True)
+  )
+)
+LeNetStyleCNN trainable parameters: 44426
+Epoch  1/15 | Train Loss: 0.2633 | Train Acc: 0.9256 | Val Loss: 0.0939 | Val Acc: 0.9713 | 9.4s
+Epoch  2/15 | Train Loss: 0.0716 | Train Acc: 0.9781 | Val Loss: 0.0696 | Val Acc: 0.9792 | 14.8s
+Epoch  3/15 | Train Loss: 0.0507 | Train Acc: 0.9839 | Val Loss: 0.0596 | Val Acc: 0.9817 | 9.9s
+Epoch  4/15 | Train Loss: 0.0379 | Train Acc: 0.9879 | Val Loss: 0.0507 | Val Acc: 0.9852 | 8.2s
+Epoch  5/15 | Train Loss: 0.0297 | Train Acc: 0.9904 | Val Loss: 0.0529 | Val Acc: 0.9842 | 7.4s
+Epoch  6/15 | Train Loss: 0.0236 | Train Acc: 0.9928 | Val Loss: 0.0519 | Val Acc: 0.9843 | 9.9s
+Epoch  7/15 | Train Loss: 0.0209 | Train Acc: 0.9934 | Val Loss: 0.0534 | Val Acc: 0.9860 | 11.4s
+Epoch  8/15 | Train Loss: 0.0148 | Train Acc: 0.9953 | Val Loss: 0.0581 | Val Acc: 0.9847 | 8.6s
+Epoch  9/15 | Train Loss: 0.0133 | Train Acc: 0.9958 | Val Loss: 0.0519 | Val Acc: 0.9873 | 7.5s
+Epoch 10/15 | Train Loss: 0.0113 | Train Acc: 0.9963 | Val Loss: 0.0489 | Val Acc: 0.9870 | 6.1s
+Epoch 11/15 | Train Loss: 0.0098 | Train Acc: 0.9966 | Val Loss: 0.0535 | Val Acc: 0.9863 | 6.3s
+Epoch 12/15 | Train Loss: 0.0093 | Train Acc: 0.9970 | Val Loss: 0.0536 | Val Acc: 0.9860 | 7.3s
+Epoch 13/15 | Train Loss: 0.0083 | Train Acc: 0.9974 | Val Loss: 0.0556 | Val Acc: 0.9867 | 10.6s
+Epoch 14/15 | Train Loss: 0.0079 | Train Acc: 0.9974 | Val Loss: 0.0608 | Val Acc: 0.9853 | 9.1s
+Epoch 15/15 | Train Loss: 0.0062 | Train Acc: 0.9980 | Val Loss: 0.0520 | Val Acc: 0.9877 | 12.1s
+LeNetStyleCNN test accuracy: 0.9884
+
+======================================================================
+Task 4A: Activation — Tanh vs ReLU (MaxPool, channels (6,16))
+======================================================================
+Tanh 已在 Task 3 训练，这里补训 ReLU 版本。
+LeNet (ReLU) trainable parameters: 44426
+Epoch  1/15 | Train Loss: 0.3208 | Train Acc: 0.9030 | Val Loss: 0.1249 | Val Acc: 0.9643 | 7.9s
+Epoch  2/15 | Train Loss: 0.0921 | Train Acc: 0.9709 | Val Loss: 0.0798 | Val Acc: 0.9765 | 5.0s
+Epoch  3/15 | Train Loss: 0.0658 | Train Acc: 0.9795 | Val Loss: 0.0750 | Val Acc: 0.9778 | 8.8s
+Epoch  4/15 | Train Loss: 0.0514 | Train Acc: 0.9830 | Val Loss: 0.0650 | Val Acc: 0.9805 | 9.9s
+Epoch  5/15 | Train Loss: 0.0426 | Train Acc: 0.9861 | Val Loss: 0.0513 | Val Acc: 0.9858 | 7.6s
+Epoch  6/15 | Train Loss: 0.0344 | Train Acc: 0.9887 | Val Loss: 0.0420 | Val Acc: 0.9878 | 6.5s
+Epoch  7/15 | Train Loss: 0.0295 | Train Acc: 0.9904 | Val Loss: 0.0508 | Val Acc: 0.9863 | 8.7s
+Epoch  8/15 | Train Loss: 0.0251 | Train Acc: 0.9919 | Val Loss: 0.0509 | Val Acc: 0.9867 | 10.0s
+Epoch  9/15 | Train Loss: 0.0226 | Train Acc: 0.9925 | Val Loss: 0.0507 | Val Acc: 0.9892 | 9.9s
+Epoch 10/15 | Train Loss: 0.0203 | Train Acc: 0.9931 | Val Loss: 0.0552 | Val Acc: 0.9865 | 14.0s
+Epoch 11/15 | Train Loss: 0.0182 | Train Acc: 0.9940 | Val Loss: 0.0445 | Val Acc: 0.9875 | 9.2s
+Epoch 12/15 | Train Loss: 0.0151 | Train Acc: 0.9948 | Val Loss: 0.0420 | Val Acc: 0.9903 | 9.0s
+Epoch 13/15 | Train Loss: 0.0141 | Train Acc: 0.9958 | Val Loss: 0.0450 | Val Acc: 0.9883 | 6.7s
+Epoch 14/15 | Train Loss: 0.0122 | Train Acc: 0.9961 | Val Loss: 0.0425 | Val Acc: 0.9902 | 6.4s
+Epoch 15/15 | Train Loss: 0.0114 | Train Acc: 0.9961 | Val Loss: 0.0499 | Val Acc: 0.9892 | 6.8s
+LeNet (ReLU) test accuracy: 0.9888
+
+======================================================================
+Task 4B: Pooling — MaxPool vs AvgPool (Tanh, channels (6,16))
+======================================================================
+MaxPool 已在 Task 3 训练，这里补训 AvgPool 版本。
+LeNet (AvgPool) trainable parameters: 44426
+Epoch  1/15 | Train Loss: 0.3216 | Train Acc: 0.9079 | Val Loss: 0.1333 | Val Acc: 0.9612 | 10.2s
+Epoch  2/15 | Train Loss: 0.0928 | Train Acc: 0.9711 | Val Loss: 0.0829 | Val Acc: 0.9777 | 8.5s
+Epoch  3/15 | Train Loss: 0.0631 | Train Acc: 0.9802 | Val Loss: 0.0847 | Val Acc: 0.9762 | 7.9s
+Epoch  4/15 | Train Loss: 0.0497 | Train Acc: 0.9844 | Val Loss: 0.0729 | Val Acc: 0.9783 | 8.3s
+Epoch  5/15 | Train Loss: 0.0413 | Train Acc: 0.9871 | Val Loss: 0.0559 | Val Acc: 0.9843 | 7.7s
+Epoch  6/15 | Train Loss: 0.0331 | Train Acc: 0.9900 | Val Loss: 0.0550 | Val Acc: 0.9828 | 6.8s
+Epoch  7/15 | Train Loss: 0.0296 | Train Acc: 0.9906 | Val Loss: 0.0566 | Val Acc: 0.9827 | 9.0s
+Epoch  8/15 | Train Loss: 0.0236 | Train Acc: 0.9923 | Val Loss: 0.0590 | Val Acc: 0.9837 | 9.3s
+Epoch  9/15 | Train Loss: 0.0207 | Train Acc: 0.9936 | Val Loss: 0.0543 | Val Acc: 0.9840 | 6.1s
+Epoch 10/15 | Train Loss: 0.0183 | Train Acc: 0.9941 | Val Loss: 0.0569 | Val Acc: 0.9832 | 12.7s
+Epoch 11/15 | Train Loss: 0.0147 | Train Acc: 0.9954 | Val Loss: 0.0561 | Val Acc: 0.9843 | 8.3s
+Epoch 12/15 | Train Loss: 0.0138 | Train Acc: 0.9956 | Val Loss: 0.0551 | Val Acc: 0.9845 | 10.4s
+Epoch 13/15 | Train Loss: 0.0126 | Train Acc: 0.9959 | Val Loss: 0.0673 | Val Acc: 0.9837 | 9.3s
+Epoch 14/15 | Train Loss: 0.0114 | Train Acc: 0.9962 | Val Loss: 0.0491 | Val Acc: 0.9865 | 9.0s
+Epoch 15/15 | Train Loss: 0.0085 | Train Acc: 0.9971 | Val Loss: 0.0562 | Val Acc: 0.9843 | 11.7s
+LeNet (AvgPool) test accuracy: 0.9861
+
+======================================================================
+Task 4C: Channel width — (6,16) vs (16,32) vs (32,64) (Tanh+MaxPool)
+======================================================================
+
+-- channels (16, 32), trainable parameters: 85822 --
+Epoch  1/15 | Train Loss: 0.2006 | Train Acc: 0.9439 | Val Loss: 0.0768 | Val Acc: 0.9770 | 14.4s
+Epoch  2/15 | Train Loss: 0.0548 | Train Acc: 0.9834 | Val Loss: 0.0593 | Val Acc: 0.9813 | 19.1s
+Epoch  3/15 | Train Loss: 0.0356 | Train Acc: 0.9890 | Val Loss: 0.0583 | Val Acc: 0.9830 | 12.0s
+Epoch  4/15 | Train Loss: 0.0270 | Train Acc: 0.9921 | Val Loss: 0.0452 | Val Acc: 0.9882 | 11.7s
+Epoch  5/15 | Train Loss: 0.0194 | Train Acc: 0.9944 | Val Loss: 0.0507 | Val Acc: 0.9855 | 12.1s
+Epoch  6/15 | Train Loss: 0.0156 | Train Acc: 0.9950 | Val Loss: 0.0483 | Val Acc: 0.9873 | 15.9s
+Epoch  7/15 | Train Loss: 0.0134 | Train Acc: 0.9959 | Val Loss: 0.0535 | Val Acc: 0.9845 | 9.6s
+Epoch  8/15 | Train Loss: 0.0124 | Train Acc: 0.9960 | Val Loss: 0.0532 | Val Acc: 0.9868 | 13.5s
+Epoch  9/15 | Train Loss: 0.0105 | Train Acc: 0.9965 | Val Loss: 0.0478 | Val Acc: 0.9868 | 14.2s
+Epoch 10/15 | Train Loss: 0.0097 | Train Acc: 0.9971 | Val Loss: 0.0557 | Val Acc: 0.9875 | 12.5s
+Epoch 11/15 | Train Loss: 0.0079 | Train Acc: 0.9974 | Val Loss: 0.0561 | Val Acc: 0.9858 | 13.9s
+Epoch 12/15 | Train Loss: 0.0102 | Train Acc: 0.9967 | Val Loss: 0.0528 | Val Acc: 0.9872 | 14.2s
+Epoch 13/15 | Train Loss: 0.0066 | Train Acc: 0.9979 | Val Loss: 0.0552 | Val Acc: 0.9867 | 14.4s
+Epoch 14/15 | Train Loss: 0.0065 | Train Acc: 0.9978 | Val Loss: 0.0605 | Val Acc: 0.9868 | 13.3s
+Epoch 15/15 | Train Loss: 0.0076 | Train Acc: 0.9976 | Val Loss: 0.0504 | Val Acc: 0.9878 | 11.3s
+LeNet channels (16, 32) test accuracy: 0.9889
+
+-- channels (32, 64), trainable parameters: 186110 --
+Epoch  1/15 | Train Loss: 0.1664 | Train Acc: 0.9539 | Val Loss: 0.0639 | Val Acc: 0.9820 | 17.8s
+Epoch  2/15 | Train Loss: 0.0482 | Train Acc: 0.9852 | Val Loss: 0.0559 | Val Acc: 0.9845 | 22.0s
+Epoch  3/15 | Train Loss: 0.0337 | Train Acc: 0.9897 | Val Loss: 0.0617 | Val Acc: 0.9825 | 26.1s
+Epoch  4/15 | Train Loss: 0.0271 | Train Acc: 0.9915 | Val Loss: 0.0559 | Val Acc: 0.9838 | 23.5s
+Epoch  5/15 | Train Loss: 0.0218 | Train Acc: 0.9931 | Val Loss: 0.0530 | Val Acc: 0.9863 | 27.3s
+Epoch  6/15 | Train Loss: 0.0200 | Train Acc: 0.9930 | Val Loss: 0.0515 | Val Acc: 0.9857 | 23.1s
+Epoch  7/15 | Train Loss: 0.0168 | Train Acc: 0.9947 | Val Loss: 0.0460 | Val Acc: 0.9887 | 23.1s
+Epoch  8/15 | Train Loss: 0.0151 | Train Acc: 0.9953 | Val Loss: 0.0444 | Val Acc: 0.9882 | 36.8s
+Epoch  9/15 | Train Loss: 0.0145 | Train Acc: 0.9951 | Val Loss: 0.0452 | Val Acc: 0.9877 | 23.2s
+Epoch 10/15 | Train Loss: 0.0123 | Train Acc: 0.9960 | Val Loss: 0.0463 | Val Acc: 0.9883 | 25.9s
+Epoch 11/15 | Train Loss: 0.0102 | Train Acc: 0.9970 | Val Loss: 0.0502 | Val Acc: 0.9870 | 27.1s
+Epoch 12/15 | Train Loss: 0.0120 | Train Acc: 0.9960 | Val Loss: 0.0606 | Val Acc: 0.9850 | 24.8s
+Epoch 13/15 | Train Loss: 0.0131 | Train Acc: 0.9956 | Val Loss: 0.0609 | Val Acc: 0.9832 | 27.6s
+Epoch 14/15 | Train Loss: 0.0104 | Train Acc: 0.9964 | Val Loss: 0.0530 | Val Acc: 0.9870 | 27.4s
+Epoch 15/15 | Train Loss: 0.0069 | Train Acc: 0.9978 | Val Loss: 0.0540 | Val Acc: 0.9868 | 26.9s
+LeNet channels (32, 64) test accuracy: 0.9885
+
+======================================================================
+Task 4D: Regularisation — Dropout / WeightDecay / Augmentation
+======================================================================
+LeNet + Dropout0.5 trainable parameters: 44426
+Epoch  1/15 | Train Loss: 0.3127 | Train Acc: 0.9121 | Val Loss: 0.1196 | Val Acc: 0.9632 | 6.0s
+Epoch  2/15 | Train Loss: 0.0920 | Train Acc: 0.9733 | Val Loss: 0.0745 | Val Acc: 0.9765 | 8.8s
+Epoch  3/15 | Train Loss: 0.0679 | Train Acc: 0.9798 | Val Loss: 0.0568 | Val Acc: 0.9845 | 9.4s
+Epoch  4/15 | Train Loss: 0.0519 | Train Acc: 0.9845 | Val Loss: 0.0502 | Val Acc: 0.9843 | 9.5s
+Epoch  5/15 | Train Loss: 0.0455 | Train Acc: 0.9858 | Val Loss: 0.0545 | Val Acc: 0.9845 | 7.2s
+Epoch  6/15 | Train Loss: 0.0374 | Train Acc: 0.9885 | Val Loss: 0.0531 | Val Acc: 0.9850 | 9.0s
+Epoch  7/15 | Train Loss: 0.0314 | Train Acc: 0.9906 | Val Loss: 0.0700 | Val Acc: 0.9813 | 12.2s
+Epoch  8/15 | Train Loss: 0.0294 | Train Acc: 0.9911 | Val Loss: 0.0500 | Val Acc: 0.9870 | 8.5s
+Epoch  9/15 | Train Loss: 0.0246 | Train Acc: 0.9923 | Val Loss: 0.0507 | Val Acc: 0.9873 | 14.0s
+Epoch 10/15 | Train Loss: 0.0218 | Train Acc: 0.9933 | Val Loss: 0.0485 | Val Acc: 0.9870 | 9.0s
+Epoch 11/15 | Train Loss: 0.0196 | Train Acc: 0.9938 | Val Loss: 0.0586 | Val Acc: 0.9853 | 8.2s
+Epoch 12/15 | Train Loss: 0.0172 | Train Acc: 0.9947 | Val Loss: 0.0526 | Val Acc: 0.9875 | 11.0s
+Epoch 13/15 | Train Loss: 0.0168 | Train Acc: 0.9946 | Val Loss: 0.0588 | Val Acc: 0.9863 | 6.8s
+Epoch 14/15 | Train Loss: 0.0159 | Train Acc: 0.9950 | Val Loss: 0.0698 | Val Acc: 0.9835 | 14.1s
+Epoch 15/15 | Train Loss: 0.0147 | Train Acc: 0.9954 | Val Loss: 0.0647 | Val Acc: 0.9855 | 7.0s
+LeNet + Dropout0.5 test accuracy: 0.9878
+LeNet + WeightDecay1e-4 trainable parameters: 44426
+Epoch  1/15 | Train Loss: 0.2643 | Train Acc: 0.9246 | Val Loss: 0.1004 | Val Acc: 0.9703 | 14.5s
+Epoch  2/15 | Train Loss: 0.0703 | Train Acc: 0.9785 | Val Loss: 0.0629 | Val Acc: 0.9813 | 8.8s
+Epoch  3/15 | Train Loss: 0.0511 | Train Acc: 0.9841 | Val Loss: 0.0648 | Val Acc: 0.9805 | 9.3s
+Epoch  4/15 | Train Loss: 0.0405 | Train Acc: 0.9871 | Val Loss: 0.0547 | Val Acc: 0.9835 | 13.6s
+Epoch  5/15 | Train Loss: 0.0323 | Train Acc: 0.9904 | Val Loss: 0.0403 | Val Acc: 0.9875 | 12.1s
+Epoch  6/15 | Train Loss: 0.0273 | Train Acc: 0.9915 | Val Loss: 0.0484 | Val Acc: 0.9847 | 6.8s
+Epoch  7/15 | Train Loss: 0.0236 | Train Acc: 0.9924 | Val Loss: 0.0492 | Val Acc: 0.9848 | 10.8s
+Epoch  8/15 | Train Loss: 0.0195 | Train Acc: 0.9939 | Val Loss: 0.0433 | Val Acc: 0.9868 | 9.8s
+Epoch  9/15 | Train Loss: 0.0192 | Train Acc: 0.9939 | Val Loss: 0.0424 | Val Acc: 0.9855 | 10.2s
+Epoch 10/15 | Train Loss: 0.0147 | Train Acc: 0.9956 | Val Loss: 0.0516 | Val Acc: 0.9852 | 15.8s
+Epoch 11/15 | Train Loss: 0.0150 | Train Acc: 0.9954 | Val Loss: 0.0411 | Val Acc: 0.9880 | 10.8s
+Epoch 12/15 | Train Loss: 0.0122 | Train Acc: 0.9964 | Val Loss: 0.0538 | Val Acc: 0.9838 | 9.1s
+Epoch 13/15 | Train Loss: 0.0141 | Train Acc: 0.9953 | Val Loss: 0.0496 | Val Acc: 0.9863 | 8.8s
+Epoch 14/15 | Train Loss: 0.0114 | Train Acc: 0.9966 | Val Loss: 0.0475 | Val Acc: 0.9862 | 8.4s
+Epoch 15/15 | Train Loss: 0.0113 | Train Acc: 0.9966 | Val Loss: 0.0569 | Val Acc: 0.9847 | 9.8s
+LeNet + WeightDecay1e-4 test accuracy: 0.9853
+LeNet + RandomAffine aug trainable parameters: 44426
+Epoch  1/15 | Train Loss: 0.5104 | Train Acc: 0.8396 | Val Loss: 0.1232 | Val Acc: 0.9638 | 21.6s
+Epoch  2/15 | Train Loss: 0.1699 | Train Acc: 0.9466 | Val Loss: 0.0918 | Val Acc: 0.9710 | 21.4s
+Epoch  3/15 | Train Loss: 0.1272 | Train Acc: 0.9604 | Val Loss: 0.0667 | Val Acc: 0.9792 | 24.9s
+Epoch  4/15 | Train Loss: 0.1053 | Train Acc: 0.9664 | Val Loss: 0.0583 | Val Acc: 0.9815 | 23.0s
+Epoch  5/15 | Train Loss: 0.0956 | Train Acc: 0.9703 | Val Loss: 0.0547 | Val Acc: 0.9818 | 23.0s
+Epoch  6/15 | Train Loss: 0.0867 | Train Acc: 0.9736 | Val Loss: 0.0517 | Val Acc: 0.9830 | 23.4s
+Epoch  7/15 | Train Loss: 0.0803 | Train Acc: 0.9749 | Val Loss: 0.0491 | Val Acc: 0.9848 | 24.2s
+Epoch  8/15 | Train Loss: 0.0753 | Train Acc: 0.9757 | Val Loss: 0.0439 | Val Acc: 0.9862 | 24.8s
+Epoch  9/15 | Train Loss: 0.0735 | Train Acc: 0.9772 | Val Loss: 0.0542 | Val Acc: 0.9828 | 13.7s
+Epoch 10/15 | Train Loss: 0.0697 | Train Acc: 0.9780 | Val Loss: 0.0547 | Val Acc: 0.9807 | 17.0s
+Epoch 11/15 | Train Loss: 0.0685 | Train Acc: 0.9788 | Val Loss: 0.0377 | Val Acc: 0.9887 | 26.5s
+Epoch 12/15 | Train Loss: 0.0628 | Train Acc: 0.9800 | Val Loss: 0.0387 | Val Acc: 0.9888 | 22.5s
+Epoch 13/15 | Train Loss: 0.0601 | Train Acc: 0.9811 | Val Loss: 0.0366 | Val Acc: 0.9897 | 18.2s
+Epoch 14/15 | Train Loss: 0.0614 | Train Acc: 0.9809 | Val Loss: 0.0374 | Val Acc: 0.9868 | 11.9s
+Epoch 15/15 | Train Loss: 0.0565 | Train Acc: 0.9823 | Val Loss: 0.0347 | Val Acc: 0.9898 | 30.8s
+LeNet + RandomAffine aug test accuracy: 0.9876
+
+======================================================================
+Task 5: Error analysis
+======================================================================
+Best CNN: LeNet Tanh+MaxPool (16, 32)  (test acc = 0.9889)
+Total misclassified: 111 / 10000
+Most confused (true -> pred) pairs:
+  9 -> 4: 10
+  5 -> 3: 9
+  2 -> 7: 6
+  6 -> 0: 6
+  8 -> 7: 5
+  2 -> 1: 4
+  8 -> 9: 4
+  8 -> 3: 4
+
+======================================================================
+Summary
+======================================================================
+Model                               Params  TrainAcc    ValAcc   TestAcc   s/epoch
+----------------------------------------------------------------------------------
+MLP [128,128]+ReLU+Dropout0.2       118282    0.9885    0.9783    0.9806      8.0s
+MinimalCNN (1 conv block)           402986    0.9980    0.9848    0.9858     13.0s
+LeNet Tanh+MaxPool (6,16)            44426    0.9980    0.9877    0.9884      9.2s
+LeNet ReLU+MaxPool (6,16)            44426    0.9961    0.9892    0.9888      8.4s
+LeNet Tanh+AvgPool (6,16)            44426    0.9971    0.9843    0.9861      9.0s
+LeNet Tanh+MaxPool (16, 32)          85822    0.9976    0.9878    0.9889     13.5s
+LeNet Tanh+MaxPool (32, 64)         186110    0.9978    0.9868    0.9885     25.5s
+LeNet + Dropout0.5                   44426    0.9954    0.9855    0.9878      9.4s
+LeNet + WeightDecay1e-4              44426    0.9966    0.9847    0.9853     10.6s
+LeNet + RandomAffine aug             44426    0.9823    0.9898    0.9876     21.8s
+
+Saved figures and summary to: /home/johnny/Desktop/deep-learning-from-scratch/lab3/results
+Done.

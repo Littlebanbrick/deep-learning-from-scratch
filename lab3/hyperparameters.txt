@@ -1,0 +1,79 @@
+# Lab 3 调参说明 (hyperparameters.txt)
+
+本文件记录 lab3.py 中各超参数与设计选择背后的理由，供撰写报告时参考。
+所有实验在 CPU 上运行，每个实验前调用 set_seed(42) 固定随机种子。
+
+## 全局设置
+- 数据归一化：仅用 transforms.ToTensor()（缩放到 [0,1]），不叠加 MNIST 均值/方差归一化。
+  理由：与 lab1 的 MLP 基准保持一致，使 CNN 与 MLP 的对比只受模型结构影响，不受预处理差异干扰。
+  这一点需在报告中明确写出（lab 要求“state clearly which choice you use”）。
+- batch_size = 64：与 lab1 一致，便于公平对比。
+- 优化器：Adam, lr=1e-3。lab1 已验证该组合在 MNIST 上收敛快且稳定；lab 建议也是 Adam 1e-3 起步。
+- 设备：CPU（无 GPU）。torch 线程数 16。
+- 随机种子：每个实验前调用 set_seed(42) 重置 torch 与 numpy 的 RNG。
+  这样每个模型变体都从相同的初始权重出发、使用相同的 batch 顺序，做到“只改一个变量”的受控对比。
+- 数据划分：训练集 60000 按 90/10 划分为 54000/6000（train/val），用固定种子的 generator 划分，
+  保证 MLP 与 CNN 使用完全相同的索引，进一步保证对比公平。
+
+## 各任务设置
+
+### Task 1 — MLP 基准
+- 直接复用 lab1 最佳配置：hidden_layers=[128,128], activation=relu, dropout=0.2, use_batch_norm=False。
+- epochs=20（与 lab1 一致），lr=1e-3。
+- 目标：复现 lab1 的 ~98.14% 测试准确率，作为后续 CNN 要超越的基准。
+- 参数量：[128,128] 两隐藏层 + 输出层 ≈ 784*128+128 + 128*128+128 + 128*10+10 ≈ 118k。
+
+### Task 2 — MinimalCNN
+- 单卷积块：Conv2d(1,16,3,padding=1) -> ReLU -> MaxPool2d(2) -> Flatten -> Linear(3136,128) -> ReLU -> Linear(128,10)。
+- padding=1 使 3x3 卷积后高宽不变（仍 28x28），MaxPool 后变 14x14，展平为 16*14*14=3136。
+- epochs=15。本任务主要是验证 tensor shape 流转，准确率非重点。
+- 参数量约 402k（比 LeNet 还多，因为 16 通道在 14x14 上展平维度很大——这正好是个讨论点）。
+
+### Task 3 — LeNet 风格 CNN（Task 4 的基准）
+- 结构：Conv(5)->Act->Pool -> Conv(5)->Act->Pool -> FC(120)->Act->FC(84)->Act->FC(10)。
+- 基准配置：channels=(6,16), activation=tanh, pool=max, dropout=0。
+- MNIST 是 28x28（不是 LeNet 原论文的 32x32），5x5 卷积无 padding：
+  28 -> 24 -> 12 -> 8 -> 4，所以第一层 FC 的输入是 16*4*4=256。
+- epochs=15：lab 要求 10–20；选 15 是为了让训练曲线能清晰展现过拟合趋势
+  （train≈0.998 vs val≈0.985），从而在 Task 4D 中能直观看出正则化的作用。
+- 参数量约 44k。
+
+### Task 4 — 控制变量对比（每次只改一个因素，其余与 Task 3 基准相同）
+
+#### 4A 激活函数：Tanh vs ReLU
+- 基准用 Tanh，另训一个 ReLU 版本对比，其余完全相同。
+- 预期：ReLU 收敛更快、梯度不易饱和；Tanh 是经典 LeNet 的选择。
+- 报告讨论点：现代 CNN 偏好 ReLU 的原因（非饱和、稀疏激活、计算简单、缓解梯度消失）。
+
+#### 4B 池化类型：MaxPool vs AvgPool
+- 基准用 MaxPool，另训一个 AvgPool 版本对比。
+- 直觉：MaxPool 保留局部最强响应，对小的平移/形变更鲁棒；AvgPool 做平均平滑，可能模糊尖锐特征。
+- 报告讨论点：pooling 作为“局部平移鲁棒性”的作用，以及它丢弃的位置信息。
+
+#### 4C 通道数：(6,16) vs (16,32) vs (32,64)
+- 三组通道配置，激活/池化固定为 Tanh+MaxPool。
+- 参数量随通道近似线性增长：约 44k / 86k / 186k（见 result.txt 与 summary.csv）。
+- 报告讨论点：加宽通道能提升表达力，但参数与计算量随之增长，存在收益递减；
+  在 MNIST 这种简单任务上，更宽的网络未必带来更高准确率，反而可能过拟合。
+
+#### 4D 正则化
+- Dropout：在最终分类头（最后一个 Linear 之前）加 Dropout(0.5)。
+  0.5 是 dropout 的常见默认值，也是 lab1 用过的设置。
+- Weight decay：优化器设 weight_decay=1e-4（L2 正则），是 Adam 上常用的温和值。
+  太大（如 1e-2）会欠拟合，太小（如 1e-6）几乎无效果，1e-4 是常见折中。
+- 数据增强：训练集加 transforms.RandomAffine(degrees=10, translate=(0.1,0.1))，
+  仅小幅旋转（±10°）与平移（±10%），保证 MNIST 仍可辨认（按 lab 建议，不使用重度增强）。
+  注意：增强只作用于训练集，验证/测试集不增强。
+- 预期：这些手段主要缩小 train/val gap；对测试准确率的提升取决于过拟合程度，
+  MNIST 上 baseline 已接近天花板，提升空间有限。
+
+## 关于 epochs 的说明
+- MLP 用 20 epochs（对齐 lab1）；CNN 各实验统一用 15 epochs。
+- 选 15 而非 10：让 4D 的正则化对比信号更明显（baseline 在 15 epoch 时已有明显过拟合 gap）。
+- 如需更快复现可降到 10，结论方向基本不变，但 4D 的正则化对比会变弱。
+- （此前 cnn_config['epochs'] 一度被临时改成 15，这里正式沿用 15 并给出理由。）
+
+## 输出文件
+- results/result.txt：全部终端输出（训练日志、shape flow、汇总表）。
+- results/*.png：各任务的 loss/accuracy 曲线与错分样本图。
+- results/summary.csv：汇总对比表，便于写报告时直接引用。

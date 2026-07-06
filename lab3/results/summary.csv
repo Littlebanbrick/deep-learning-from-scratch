@@ -1,0 +1,11 @@
+model,params,train_acc,val_acc,test_acc,avg_epoch_time_s
+"MLP [128,128]+ReLU+Dropout0.2",118282,0.9885,0.9783,0.9806,8.0
+MinimalCNN (1 conv block),402986,0.9980,0.9848,0.9858,13.0
+"LeNet Tanh+MaxPool (6,16)",44426,0.9980,0.9877,0.9884,9.2
+"LeNet ReLU+MaxPool (6,16)",44426,0.9961,0.9892,0.9888,8.4
+"LeNet Tanh+AvgPool (6,16)",44426,0.9971,0.9843,0.9861,9.0
+"LeNet Tanh+MaxPool (16, 32)",85822,0.9976,0.9878,0.9889,13.5
+"LeNet Tanh+MaxPool (32, 64)",186110,0.9978,0.9868,0.9885,25.5
+LeNet + Dropout0.5,44426,0.9954,0.9855,0.9878,9.4
+LeNet + WeightDecay1e-4,44426,0.9966,0.9847,0.9853,10.6
+LeNet + RandomAffine aug,44426,0.9823,0.9898,0.9876,21.8
