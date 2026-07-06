@@ -41,6 +41,7 @@ The user is a Computer Science and Technology student at Zhejiang University, en
 
 - Before starting a new substantive step, check the git status.
 - The user's preferred rhythm is: before doing a new step, commit the previous completed change; do not commit the current in-progress change. The current change should become the "previous change" for the next step.
+- Commit messages may include the agent name `Codex` when Codex authored or assisted with the committed change.
 - Never automatically commit unrelated user changes. If unrelated dirty files exist, leave them alone unless the user explicitly asks.
 - Do not delete generated figures, reports, datasets, or user-visible outputs unless the user explicitly asks or they are clearly temporary artifacts created during the current task.
 
