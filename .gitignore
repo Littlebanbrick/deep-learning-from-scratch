@@ -4,5 +4,8 @@
 !papers/
 !papers/*.pdf
 
+# Ignore downloaded datasets inside labs
+lab*/data/
+
 # Ignore pycache
 __pycache__/
