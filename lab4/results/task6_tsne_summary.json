@@ -1,0 +1,14 @@
+{
+  "task": "task6_tsne",
+  "max_samples": 1000,
+  "num_samples_used": 1000,
+  "pixel_dim": 150528,
+  "feature_dim": 512,
+  "perplexity": 30,
+  "outputs": {
+    "pixels": "/home/johnny/Desktop/deep-learning-from-scratch/lab4/results/task6_tsne_pixels.png",
+    "pretrained_features": "/home/johnny/Desktop/deep-learning-from-scratch/lab4/results/task6_tsne_pretrained_features.png",
+    "side_by_side": "/home/johnny/Desktop/deep-learning-from-scratch/lab4/results/task6_tsne_side_by_side.png",
+    "data": "/home/johnny/Desktop/deep-learning-from-scratch/lab4/results/task6_tsne_data.npz"
+  }
+}
