@@ -52,9 +52,24 @@ deep-learning-from-scratch/
 ├── car_or_truck/           # First neural network: binary car/truck classifier
 ├── lab1/                   # MNIST MLP with hyperparameter exploration (PyTorch)
 ├── lab2/                   # NumPy-only manual NN implementation (linear/logistic regression + 1-hidden-layer NN)
+├── lab3/                   # CNN for MNIST (tensor-shape tracking, controlled design comparisons)
+├── lab4/                   # Transfer learning with pretrained ResNet18 on Oxford-IIIT Pet
+├── minimal-rnn/            # Minimal RNN stub: predict next sine point with nn.RNN
+├── lab5/                   # Sequence modeling: RNN → LSTM/GRU (BPTT, vanishing gradients, hand-written LSTM)
+├── lab6/                   # Attention and Transformer from scratch (the keystone of the advanced track)
+├── lab7/                   # Vision Transformer: CV + Transformer confluence, controlled ViT-vs-CNN comparison
+├── lab-gen/                # Autoencoders and VAE (generative modeling, reparameterisation, β-VAE)
+├── lab-opt/                # Optimizers from scratch (SGD/momentum/RMSProp/Adam, verified vs torch.optim)
+├── papers/                 # Classic CV papers (LeNet→AlexNet→VGG→…→YOLO)
 ├── requirements.txt        # Python dependencies
 └── CLAUDE.md               # This file
 ```
+
+The labs form a progression. The core chain is hand-written MLP/backprop (lab2) → CNN (lab3) → transfer learning (lab4), with a parallel sequence track that grows the `minimal-rnn` stub into RNN/LSTM (lab5) → Transformer (lab6) → Vision Transformer (lab7, where the CV and sequence tracks merge). `lab-gen` (autoencoders/VAE) and `lab-opt` (optimizers) are optional branches reachable after lab6 / lab2 respectively.
+
+### Advanced labs (lab5–lab7, lab-gen, lab-opt) — status
+
+These five labs currently contain only a `lab_requirement.md` each. They are **planned but not yet started** — no implementation code, no report. They were authored as a curriculum so the user can work through them incrementally. When the user begins one, treat its `lab_requirement.md` as the spec (same authority as lab1/lab2's). The requirements follow the established style: incremental tasks, fixed seeds, visible metrics/plots, controlled one-axis comparisons, hand-implementation verified against library/autograd, CPU-only with time warnings, and Typst reports.
 
 ### car_or_truck/ — Binary Classification Introduction
 
